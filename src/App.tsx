@@ -5,6 +5,7 @@ import ParallaxScene from './components/ParallaxScene';
 import CustomCursor from './components/CustomCursor';
 import Navigation from './components/Navigation';
 import LoadingScreen from './components/LoadingScreen';
+import TestimonialsSection from './components/TestimonialsSection';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +66,7 @@ function App() {
           </motion.div>
         </section>
 
-        {/* Add more sections here */}
+        <TestimonialsSection />
       </main>
     </>
   );
