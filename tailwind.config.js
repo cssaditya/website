@@ -4,35 +4,26 @@ export default {
   theme: {
     extend: {
       colors: {
-        'void-black': '#000000',
-        'charcoal': '#333333',
-        'blood-red': '#DC143C',
-        'ruby': '#E0115F',
+        background: '#0a0a0a',
+        accent: '#b026ff',
+        'accent-light': '#ff26b0',
       },
       fontFamily: {
-        heading: ['"Monument Extended"', 'Arial Black', 'sans-serif'],
-        body: ['"Sharp Grotesk"', 'Arial', 'Helvetica', 'sans-serif'],
+        sans: ['Space Grotesk', 'sans-serif'],
       },
       animation: {
-        'float': 'floating 3s ease-in-out infinite',
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'spin-slow': 'spin 8s linear infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
       },
-      transitionProperty: {
-        'height': 'height',
-        'spacing': 'margin, padding',
-      },
-      boxShadow: {
-        'red-glow': '0 0 15px rgba(220, 20, 60, 0.7)',
-      },
-      height: {
-        '128': '32rem',
-      },
-      spacing: {
-        '72': '18rem',
-        '84': '21rem',
-        '96': '24rem',
-        '128': '32rem',
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { opacity: 1, boxShadow: '0 0 20px rgba(176, 38, 255, 0.5)' },
+          '50%': { opacity: 0.7, boxShadow: '0 0 40px rgba(176, 38, 255, 0.8)' },
+        },
       },
     },
   },

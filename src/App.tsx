@@ -1,57 +1,73 @@
-import React, { useEffect } from 'react';
-import Header from './components/Header';
-import HeroSection from './components/HeroSection';
-import IntroSection from './components/IntroSection';
-import FeaturesSection from './components/FeaturesSection';
-import PreviousBoxesSection from './components/PreviousBoxesSection';
-import PricingSection from './components/PricingSection';
-import RegisterSection from './components/RegisterSection';
-import Footer from './components/Footer';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import ParallaxScene from './components/ParallaxScene';
+import CustomCursor from './components/CustomCursor';
+import Navigation from './components/Navigation';
+import LoadingScreen from './components/LoadingScreen';
 
 function App() {
-  // Helper function to create particles globally once for performance
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    // Set the document title
-    document.title = "PREMIUM MYSTERY BOX | Unlock The Unknown";
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const href = this.getAttribute('href');
-        if (!href) return;
-        
-        const target = document.querySelector(href);
-        if (!target) return;
-        
-        window.scrollTo({
-          top: (target as HTMLElement).offsetTop,
-          behavior: 'smooth'
-        });
-      });
-    });
-    
-    return () => {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', () => {});
-      });
-    };
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="App bg-void-black text-white">
-      <Header />
-      <main>
-        <HeroSection />
-        <IntroSection />
-        <FeaturesSection />
-        <PreviousBoxesSection />
-        <PricingSection />
-        <RegisterSection />
+    <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen />}
+      </AnimatePresence>
+
+      <CustomCursor />
+      <Navigation />
+
+      <main className="relative">
+        <section className="h-screen relative overflow-hidden">
+          <ParallaxScene />
+          
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 1 }}
+              className="text-center"
+            >
+              <h1 className="text-6xl md:text-8xl font-bold mb-6 gradient-text">
+                UNBOX THE UNKNOWN
+              </h1>
+              <p className="text-xl md:text-2xl text-white/80 mb-8">
+                Limited edition creator drops. Exclusive collectibles.
+                <br />A surprise in every box.
+              </p>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-accent hover:bg-accent-light px-8 py-4 rounded-full text-white font-medium text-lg transition-colors duration-300"
+              >
+                GET NOTIFIED
+              </motion.button>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3, duration: 1 }}
+            className="scroll-indicator"
+          >
+            <ChevronDown className="w-8 h-8 text-white animate-bounce" />
+          </motion.div>
+        </section>
+
+        {/* Add more sections here */}
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }
 
